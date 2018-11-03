@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\POst;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,10 +38,23 @@ class HomeController extends AbstractController
            'age' => 23
 
        ];
+       // store in database
+         $post= new POst();
+         $post ->setTitle("Hilo");
+         $post->setDescription("Tumar poroner jaha cay");
+         $em= $this->getDoctrine()->getManager();
+         $retrievepost = $em ->getRepository(POst::class) ->findOneBy([
+             'id' =>6
+         ]);
+         $em-> persist($post); //create the sql command
+        //delete data
+        $em-> remove($retrievepost);
+        //call it at the end
+        $em-> flush();
         return $this->render('home/greet.html.twig', [
             'info' => $person,
-            'formbuilder' => $form -> createView()
-
+            'formbuilder' => $form -> createView(),
+             'post' => $retrievepost
         ]);
     }
 }
