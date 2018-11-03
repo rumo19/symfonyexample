@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {% endblock %}
+
+{% block body %}
+    {{ form_start(form_new, {'attr': {'id': 'Custom_id'}}) }}
+{{ form(form_new) }}
+    {{ form_end(form_new) }}
+{% endblock %}
